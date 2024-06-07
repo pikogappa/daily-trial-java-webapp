@@ -1,6 +1,7 @@
 package plugin.enemydown.app.controller;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,8 +38,14 @@ public class ConfigController {
   }
 
   @PostMapping(value = "/config")
-  public ResponseEntity<GameConfig> registerConfig(@RequestBody GameConfig config) {
+  public ResponseEntity<GameConfig> registerConfig(@RequestBody GameConfig config) throws Exception{
     GameConfig registerConfig = service.registerConfig(config);
     return new ResponseEntity<>(registerConfig, HttpStatus.OK);
   }
+  @PostMapping(value = "/updateEnemyScore")
+  public ResponseEntity<List<SpawnEnemy>> updateEnemyScore(@RequestBody SpawnEnemy enemy) {
+    List<SpawnEnemy> updateSpawnEnemyList = service.updateEnemyScore(enemy);
+    return new ResponseEntity<>(updateSpawnEnemyList, HttpStatus.OK);
+  }
+
 }
