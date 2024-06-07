@@ -26,9 +26,8 @@ public class ConfigService {
   }
 
   public GameConfig registerConfig(GameConfig config) throws Exception {
-    GameConfig existsConfig = searchConfig(config.getDifficulty());
-    if(existsConfig != null){
-      throw new Exception();
+    if(searchConfig(config.getDifficulty()) != null){
+      throw new DuplicateConfigException("Duplicate Config Error!");
     }
     mapper.insertConfig(config);
     return mapper.selectConfig(config.getDifficulty());
